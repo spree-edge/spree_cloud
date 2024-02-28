@@ -1,0 +1,22 @@
+<%= form_for @cloud_asset, url: admin_cloud_path(@cloud_asset), html: { method: :patch, multipart: true } do |f| %>
+  <div data-hook="edit_image" class="card mb-3">
+    <div class="card-header">
+      <h5 class="card-title mb-0 h6">
+        <%= @cloud_asset.asset_file_name %>
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <div class="col-12 col-lg-9">
+          <%= render partial: 'form', locals: { f: f } %>
+        </div>
+
+        <div class="form-actions" data-hook="buttons">
+          <%= button Spree.t('actions.update'), 'save.svg' %>
+          <span class="or"><%= Spree.t(:or) %></span>
+          <%= button_link_to Spree.t('actions.cancel'), spree.admin_clouds_path(@cloud_asset), id: 'cancel_link', icon: 'cancel.svg' %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
