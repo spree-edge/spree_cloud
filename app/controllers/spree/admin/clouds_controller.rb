@@ -48,7 +48,7 @@ module Spree
       private
 
       def cloud_asset_params
-        params.require(:cloud_asset).permit(:attachment)
+        params.require(:cloud_asset).permit(:attachment, :asset_id, :asset_type, :asset_url, :asset_file_name, :alt)
       end
     end
   end
