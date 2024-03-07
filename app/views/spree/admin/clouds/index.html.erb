@@ -3,14 +3,17 @@
 <% end %>
 
 <% content_for :page_actions do %>
-  <%= yield :page_actions %>
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadCloudAssetModal">Upload Asset</button>
 <% end %>
 
+<% content_for :table_filter do %>
+  <%= render partial: 'filters' %>
+<% end %>
 
 <%= render partial: 'upload_asset_modal' %>
-<div class="table-responsive border rounded bg-white">
-  <%= turbo_frame_tag 'cloud_assets' do %>
+
+<% if @collection.any? %>
+  <div class="table-responsive border rounded bg-white">
     <table class="table" id='listing_cloud_assets'> 
       <thead class="text-muted">
         <tr>
@@ -20,10 +23,16 @@
         </tr>
       </thead>
       <tbody>
-        <% @cloud_assets.each do |cloud_asset| %>
-          <%= render partial: 'cloud_asset', locals: { cloud_asset: cloud_asset } %>
-        <% end %>
+        <%= turbo_frame_tag 'display-cloud-assets' do %>
+          <%= render partial: 'cloud_asset' %>
+         <% end %>
       </tbody>
     </table>
+  </div>
+<% else %>
+ <%= turbo_frame_tag 'display-cloud-assets' do %>
+    <div class="text-center no-objects-found m-5">
+      <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::CloudAsset)) %>!
+    </div>
   <% end %>
-</div>
+<% end %>

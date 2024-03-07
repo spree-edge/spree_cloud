@@ -1,0 +1,41 @@
+<div data-hook="admin_products_sidebar">
+  <%= search_form_for [:admin, @search], url: admin_clouds_path do |f| %>
+    <div data-hook="admin_products_index_search" class="row">
+      <div class="col-12 col-lg-6">
+        <div class="form-group">
+          <%= f.label :asset_file_name_eq, 'Name' %>
+          <%= f.text_field :asset_file_name_eq, size: 40, class: "form-control js-quick-search-target js-filterable" %>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="form-group">
+          <%= f.label :user_name_cont, 'Added By' %>
+          <%= f.text_field :user_name_cont, size: 30, class: "form-control js-filterable" %>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="form-group">
+          <%= f.label :attachment_content_type_eq, 'Content Type' %>
+          <%= f.text_field :attachment_content_type_eq, size: 15, class: "form-control js-filterable" %>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div class="form-group">
+          <%= f.label :email_cont, 'Tags' %>
+          <%= f.text_field :email_cont, size: 15, class: "form-control js-filterable" %>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="form-group">
+          <%= f.label :created_at_eq, 'Uploaded At' %>
+          <%= f.text_field :created_at_eq, size: 15, class: "form-control js-filterable" %>
+        </div>
+      </div>
+    </div>
+
+    <div data-hook="admin_products_index_search_buttons" class="form-actions">
+      <%= button Spree.t(:filter_results), 'search.svg' %>
+    </div>
+  <% end %>
+</div>

@@ -1,8 +1,14 @@
-<tr id="cloud_asset_<%= cloud_asset.id %>">
-  <td><%= cloud_asset.asset_type %></td>
-  <td><%= cloud_asset.asset_url %></td>
-  <td>
-    <%= link_to "Edit", edit_admin_cloud_path(cloud_asset), class: "btn btn-primary btn-sm mr-2" %>
-    <%= link_to "Delete", admin_cloud_path(cloud_asset), method: :delete, data: { method: :delete, confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
-  </td>
-</tr>
+<%= turbo_frame_tag 'display-cloud-assets' do %>
+  <% @collection.each do |cloud_asset| %>
+    <tr id="cloud_asset_<%= cloud_asset.id %>">
+      <td><%= cloud_asset.asset_type %></td>
+      <td><%= cloud_asset.asset_url %></td>
+      <td>
+        <%= link_to "Edit", edit_admin_cloud_path(cloud_asset), class: "btn btn-primary btn-sm mr-2" %>
+        <%= link_to "Delete", admin_cloud_path(cloud_asset), method: :delete, data: { method: :delete, confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+      </td>
+    </tr>
+  <% end %>
+
+  <%= render partial: 'spree/admin/shared/index_table_options', locals: { collection: @collection } %>
+<% end %>

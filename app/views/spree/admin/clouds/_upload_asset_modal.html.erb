@@ -10,7 +10,7 @@
       </div>
       <!-- Modal body -->
       <div class="modal-body">
-        <%= form_with(model: Spree::CloudAsset.new, url: spree.admin_clouds_path, method: :post, multipart: true, id: "upload-form", data: { turbo_frame: 'new_cloud_asset' }) do |form| %>
+        <%= form_with(model: Spree::CloudAsset.new, url: spree.admin_clouds_path, method: :post, multipart: true, id: "upload-form") do |form| %>
           <div class="form-group">
             <%= form.label :attachment, 'Choose File', class: 'btn btn-primary' %>
             <%= form.file_field :attachment %>

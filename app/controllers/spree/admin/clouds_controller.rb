@@ -1,6 +1,7 @@
 module Spree
   module Admin
-    class CloudsController < Spree::Admin::BaseController
+    class CloudsController < ResourceController
+      
       def index
         @cloud_assets = Spree::CloudAsset.all
       end
@@ -20,21 +21,6 @@ module Spree
         end
       end
 
-      def update
-        @cloud_asset = Spree::CloudAsset.find(params[:id])
-        if @cloud_asset.update(cloud_asset_params)
-          flash[:success] = "Cloud asset updated successfully"
-          redirect_to admin_clouds_path
-        else
-          flash[:error] = "Failed to update cloud asset"
-          render :edit
-        end
-      end
-
-      def edit
-        @cloud_asset = Spree::CloudAsset.find(params[:id])
-      end
-
       def destroy
         @cloud_asset = Spree::CloudAsset.find(params[:id])
         if @cloud_asset.destroy
@@ -49,6 +35,26 @@ module Spree
 
       def cloud_asset_params
         params.require(:cloud_asset).permit(:attachment)
+      end
+
+      def collection
+        return @collection if @collection.present?
+
+        params[:q] ||= {}
+        params[:q][:s] ||= 'created_at asc'
+
+        @collection = cloud_asset_scope
+
+        @search = @collection.ransack(params[:q])
+        @collection = @search.result.
+                      page(params[:page]).
+                      per(params[:per_page] || Spree::Backend::Config[:admin_products_per_page])
+
+        @collection
+      end
+
+      def cloud_asset_scope
+        current_store.cloud_assets.accessible_by(current_ability, :index)
       end
     end
   end
