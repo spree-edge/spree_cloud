@@ -3,19 +3,23 @@ module Spree
     class CloudsController < ResourceController
       
       def index
-        @cloud_assets = Spree::CloudAsset.all
-      end
+        params[:q] ||= {}
+        params[:q][:s] ||= 'created_at asc'
 
-      # def new
-      #   @cloud_asset = Spree::CloudAsset.new
-      # end
+        @search = @collection.ransack(params[:q])
+        @collection = @search.result.
+                      page(params[:page]).
+                      per(params[:per_page] || Spree::Backend::Config[:admin_products_per_page])
+      end
 
       def create
         @cloud_asset = Spree::CloudAsset.new(cloud_asset_params)
+        @cloud_asset.store = current_store
+        @cloud_asset.user = spree_current_user
 
         if @cloud_asset.save
           flash.now[:notice] = 'Cloud asset was successfully created.'
-          render turbo_stream: turbo_stream.append('cloud_assets', partial: 'cloud_asset', locals: { cloud_asset: @cloud_asset })
+          render turbo_stream: turbo_stream.append('display-cloud-assets', partial: 'cloud_asset', locals: { cloud_asset: @cloud_asset })
         else
           render :index
         end
@@ -37,24 +41,9 @@ module Spree
         params.require(:cloud_asset).permit(:attachment, :asset_id, :asset_type, :asset_url, :asset_file_name, :alt)
       end
 
-      def collection
-        return @collection if @collection.present?
 
-        params[:q] ||= {}
-        params[:q][:s] ||= 'created_at asc'
-
-        @collection = cloud_asset_scope
-
-        @search = @collection.ransack(params[:q])
-        @collection = @search.result.
-                      page(params[:page]).
-                      per(params[:per_page] || Spree::Backend::Config[:admin_products_per_page])
-
-        @collection
-      end
-
-      def cloud_asset_scope
-        current_store.cloud_assets.accessible_by(current_ability, :index)
+      def model_class
+        Spree::CloudAsset
       end
     end
   end

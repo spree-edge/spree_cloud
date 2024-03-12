@@ -1,32 +1,5 @@
-<div class="input-group form-group">
-  <span class="input-group-btn " id= 'asset_upload_buton'>
-<button type="button" class="btn btn-default"  id="upload_asset_button" data-toggle="modal" data-target="#associate_asset_modal">Select Asset</button>
-
-  </span>
-  <input type="text" id="digital_asset_file_name" disabled='true' class="form-control">
-</div>
-
-<div id="associate_asset_modal" class="modal fade" >
-  <div class="modal-dialog modal-lg">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><strong><%= Spree.t(:asset_uploader) %></strong></h4>
-      </div>
-      <div id = 'upload_asset_modal_body' class="modal-body">
-        <div class="row">
-          <% Spree::CloudAsset.all.each do |cloud_asset| %>
-          <div class="cloud-asset-item" data-id="<%= cloud_asset.id %>">
-            <button class="select-cloud-asset-btn">Select</button>
-            <%= cloud_asset.attachment.filename %>
-          </div>
-            
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="field">
+  <%= f.label :cloud_asset %>
+  <%= cloud_field_tag :attachment %>
 </div>
 
