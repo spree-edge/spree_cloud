@@ -4,7 +4,7 @@ Deface::Override.new(
   insert_after: 'ul#sidebarApps',
   text: <<-HTML
     <% if can? :admin, Spree::CloudAsset %>
-      <ul class="nav nav-sidebar border-bottom" id="sidebarCloud">
+      <ul class="nav nav-sidebar" id="sidebarCloud">
         <%= tab 'Cloud', url: admin_clouds_path, icon: "cloud.svg" %>
       </ul>
     <% end %>

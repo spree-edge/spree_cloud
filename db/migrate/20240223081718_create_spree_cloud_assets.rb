@@ -9,8 +9,10 @@ class CreateSpreeCloudAssets < ActiveRecord::Migration[6.1]
       t.string :asset_file_name
       t.text :alt
 
+      t.belongs_to :store, foreign_key: { to_table: :spree_stores }
+      t.belongs_to :user, foreign_key: { to_table: :spree_users }
+
       t.timestamps
     end
   end
 end
-
