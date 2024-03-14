@@ -1,10 +1,23 @@
 <tr id="cloud_asset_<%= cloud_asset.id %>">
-  <td><%= cloud_asset.asset_file_name %></td>
+  <td class="image text-center">
+    <div class="admin-product-image-container small-img">
+    <%= image_tag Rails.application.routes.url_helpers.rails_blob_url(cloud_asset.attachment) %>
+  </div>
+</td>
+  <td><%= cloud_asset.asset_file_name %><br>
+    <span><%= cloud_asset.attachment.content_type.split("/").last.upcase %></span>
+    <span class="badge badge-secondary"><%= cloud_asset.asset_type&.split("::")&.last %></span>
+  </td>
   <td><%= cloud_asset.created_at %></td>
   <td><%= cloud_asset.asset_file_size %></td>
+  <td><%= cloud_asset.user&.email %></td>
   <td>
-    <%= link_to "Edit", edit_admin_cloud_path(cloud_asset), class: "btn btn-primary btn-sm mr-2" %>
-    <%= link_to "Delete", admin_cloud_path(cloud_asset), method: :delete, data: { method: :delete, confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+    <td class="actions">
+      <span class="d-flex justify-content-end">
+        <%= link_to_edit(cloud_asset, class: '', no_text: true) if can?(:edit, cloud_asset) %>
+        <%= link_to_delete(cloud_asset, no_text: true) if can?(:delete, cloud_asset) %>
+      </span>
+    </td>
   </td>
 </tr>
  
