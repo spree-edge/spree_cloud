@@ -1,10 +1,19 @@
 module Spree
   module Admin
     class CloudsController < ResourceController
+      before_action :load_filter_data
       
       def index
         params[:q] ||= {}
-        params[:q][:s] ||= 'created_at asc'
+        params[:q][:s] ||= 'created_at desc'
+
+        if params[:q][:created_at_gt].present?
+          params[:q][:created_at_gt] = begin
+            Time.zone.parse(params[:q][:created_at_gt]).beginning_of_day
+          rescue StandardError
+            ''
+          end
+        end
 
         @search = @collection.ransack(params[:q])
         @collection = @search.result.
@@ -39,6 +48,11 @@ module Spree
 
       def cloud_asset_params
         params.require(:cloud_asset).permit(:attachment, :asset_id, :asset_type, :asset_url, :asset_file_name, :alt)
+      end
+
+      def load_filter_data
+        @content_type_options =  @collection.distinct.pluck(:attachment_content_type)
+        @asset_type_options = @collection.distinct.pluck(:asset_type)
       end
 
 

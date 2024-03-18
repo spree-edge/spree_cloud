@@ -7,7 +7,7 @@
 <% end %>
 
 <% content_for :table_filter do %>
-  <%= render partial: 'filters' %>
+  <%= render partial: 'filters', locals: { content_type_options: @content_type_options, asset_type_options: @asset_type_options } %>
 <% end %>
 
 <%= render partial: 'upload_asset_modal' %>

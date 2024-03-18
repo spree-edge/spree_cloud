@@ -7,7 +7,7 @@ module SpreeCloud
 
       def create_cloud_asset
         begin
-          cloud_asset = Spree::CloudAsset.new(cloud_asset_params)
+          cloud_asset = ::Spree::CloudAsset.new(cloud_asset_params)
           cloud_asset_attachment = self.attachment.blob
           cloud_asset.attachment.attach(cloud_asset_attachment)
           cloud_asset.save!
@@ -24,7 +24,8 @@ module SpreeCloud
           asset_file_size: attachment.byte_size,
           attachment_content_type: attachment.content_type,
           asset_file_name: attachment.filename,
-          alt: alt
+          alt: alt,
+          store_id: Thread.current["#{Apartment::Tenant.current}_current_store_id"]
         }
       end
     end

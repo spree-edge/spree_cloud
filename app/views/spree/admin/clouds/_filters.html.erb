@@ -7,31 +7,51 @@
           <%= f.text_field :asset_file_name_eq, size: 40, class: "form-control js-quick-search-target js-filterable" %>
         </div>
       </div>
+
       <div class="col-12 col-lg-6">
         <div class="form-group">
-          <%= f.label :user_name_cont, 'Added By' %>
-          <%= f.text_field :user_name_cont, size: 30, class: "form-control js-filterable" %>
-        </div>
-      </div>
-      <div class="col-12 col-lg-6">
-        <div class="form-group">
-          <%= f.label :attachment_content_type_eq, 'Content Type' %>
-          <%= f.text_field :attachment_content_type_eq, size: 15, class: "form-control js-filterable" %>
+          <%= f.label :user_email_cont, 'Added By' %>
+          <%= f.text_field :user_email_cont, size: 30, class: "form-control js-filterable" %>
         </div>
       </div>
 
       <div class="col-12 col-lg-6">
         <div class="form-group">
-          <%= f.label :email_cont, 'Tags' %>
-          <%= f.text_field :email_cont, size: 15, class: "form-control js-filterable" %>
+          <%= f.label :attachment_content_type_eq, 'Content Type' %>
+          <%= f.select :attachment_content_type_eq, 
+                       options_for_select(content_type_options, @search.attachment_content_type_eq), 
+                       { include_blank: true }, 
+                       class: "select2 js-filterable" %>
         </div>
       </div>
+
       <div class="col-12 col-lg-6">
         <div class="form-group">
-          <%= f.label :created_at_eq, 'Uploaded At' %>
-          <%= f.text_field :created_at_eq, size: 15, class: "form-control js-filterable" %>
+          <%= f.label :asset_type_eq, 'Tags' %>
+          <%= f.select :asset_type_eq, 
+                       options_for_select(asset_type_options, @search.asset_type_eq), 
+                       { include_blank: true }, 
+                       class: "select2 js-filterable" %>
         </div>
       </div>
+
+      
+      
+      <div class="col-12 col-md-6 mb-3 mb-md-0">
+        <%= f.label :created_at_gt, 'Uploaded At' %>
+        <div class="input-group datePickerFrom"
+             data-wrap="true"
+             data-alt-format="<%= Spree.t(:fpr_human_friendly_date_format, scope: 'date_picker', default: 'M j, Y') %>"
+             data-max-date="<%= params[:q][:created_at_lt] %>">
+          <%= f.text_field :created_at_gt,
+            class: 'form-control js-filterable',
+              value: params[:q][:created_at_gt],
+              placeholder: Spree.t(:starting_from),
+              'data-input':'' %>
+          <%= render partial: 'spree/admin/shared/cal_close' %>
+        </div>
+      </div>
+      
     </div>
 
     <div data-hook="admin_products_index_search_buttons" class="form-actions">

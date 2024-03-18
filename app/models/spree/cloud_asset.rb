@@ -11,7 +11,8 @@ module Spree
     belongs_to :user, class_name: 'Spree::User', foreign_key: 'user_id'
 
     # self.whitelisted_ransackable_associations = %w[conversations]
-    self.whitelisted_ransackable_attributes = %w[created_at email attachment_content_type asset_file_name user_name]
+    self.whitelisted_ransackable_attributes = %w[created_at email attachment_content_type asset_type asset_file_name user_name]
+    self.whitelisted_ransackable_associations = %w[user]
 
 
     private

@@ -5,7 +5,7 @@ class CreateSpreeCloudAssets < ActiveRecord::Migration[6.1]
       t.string :asset_type
       t.string :asset_url
       t.integer :asset_file_size
-      t.integer :attachment_content_type
+      t.string :attachment_content_type
       t.string :asset_file_name
       t.text :alt
 
