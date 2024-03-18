@@ -27,11 +27,11 @@
 
       <div class="col-12 col-lg-6">
         <div class="form-group">
-          <%= f.label :asset_type_eq, 'Tags' %>
-          <%= f.select :asset_type_eq, 
+          <%= f.label :asset_type_in, 'Tags' %>
+          <%= f.select :asset_type_in, 
                        options_for_select(asset_type_options, @search.asset_type_eq), 
                        { include_blank: true }, 
-                       class: "select2 js-filterable" %>
+                       class: "select2 js-filterable", multiple: true %>
         </div>
       </div>
 
