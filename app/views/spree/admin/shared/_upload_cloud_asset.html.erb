@@ -1,5 +1,52 @@
-<div class="field">
-  <%= f.label :cloud_asset %>
-  <%= cloud_field_tag :attachment %>
+<div class="input-group form-group">
+  <span class="input-group-btn" id="asset_upload_buton">
+    <button type="button" class="btn btn-default" id="upload_asset_button" data-toggle="modal" data-target="#associate_asset_modal">Select Asset</button>
+  </span>
+  <input type="text" id="cloud_asset_file_name" disabled="true" class="form-control">
 </div>
 
+<div id="associate_asset_modal" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><strong><%= Spree.t(:asset_uploader) %></strong></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div id="upload_asset_modal_body" class="modal-body">
+        <div class="row">
+          <% @cloud_assets.each do |asset| %>
+            <div class="col-md-3">
+              <div class="cloud-asset-item asset-area">
+                <div class="asset-info">
+                  <%= image_tag(main_app.cdn_image_url(asset.attachment), class: 'cloud-asset-thumbnail attachment', width: '100px', height: '100px', data: { id: asset.id,
+                    name: asset.asset_file_name}) %>
+                  <%= content_tag(:div, asset.asset_file_name, class: 'cloud-asset-name') %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary attach-btn">Attach</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<input type="hidden" id="cloud_asset_id_field" name="cloud_asset_data" />
+
+<script>
+  $(document).ready(function() {
+    $('#associate_asset_modal').on('click', '.asset-area', function() {
+      $('#cloud_asset_id_field').val($(this).find('.attachment').attr('data-id'));
+      $('#cloud_asset_file_name').val($(this).find('.attachment').attr('data-name'));
+    });
+  
+    $('#associate_asset_modal').on('dblclick', '.asset-area', function() {
+      $('#associate_asset_modal').modal('hide');
+    });
+  }); 
+</script>
