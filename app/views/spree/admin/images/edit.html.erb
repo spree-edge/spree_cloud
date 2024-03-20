@@ -1,0 +1,30 @@
+<%= render partial: 'spree/admin/shared/product_tabs', locals: { current: :images } %>
+
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @image } %>
+
+<%= form_for [:admin, @product, @image], html: { multipart: true } do |f| %>
+  <div data-hook="edit_image" class="card mb-3">
+    <div class="card-header">
+      <h5 class="card-title mb-0 h6">
+        <%= @image.attachment_file_name %>
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <div data-hook="thumbnail" class="col-12 col-lg-3 text-center">
+          <%= f.label Spree.t(:thumbnail) %>
+          <%= link_to image_tag(main_app.cdn_image_url(@image.attachment)), main_app.cdn_image_url(@image.attachment) %>
+        </div>
+        <div class="col-12 col-lg-9">
+          <%= render partial: 'form', locals: { f: f } %>
+        </div>
+
+        <div class="form-actions" data-hook="buttons">
+          <%= button Spree.t('actions.update'), 'save.svg' %>
+          <span class="or"><%= Spree.t(:or) %></span>
+          <%= button_link_to Spree.t('actions.cancel'), spree.admin_product_images_url(@product), id: 'cancel_link', icon: 'cancel.svg' %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
