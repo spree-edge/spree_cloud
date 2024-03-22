@@ -18,14 +18,7 @@
             <%= f.label :user_email_cont, "Added By" %>
             <%= f.text_field :user_email_cont, class: "form-control js-filterable" %>
           </div>
-        
-          <div class="col-md-3">
-            <%= f.label :attachment_content_type_eq, 'Content Type' %>
-            <%= f.select :attachment_content_type_eq, 
-                         options_for_select(content_type_options), 
-                         { include_blank: true }, 
-                         class: "form-control js-filterable" %>
-          </div>
+
           <div class="col-md-3">
             <%= f.label :created_at_gt, 'Uploaded at' %>
             <%= f.date_field :created_at_gt, class: "form-control js-filterable" %>
@@ -42,20 +35,18 @@
         <%= turbo_frame_tag "upload_asset_modal_body" do %>
           <div class="row">
             <% @cloud_assets.each do |asset| %>
-              <div class="col-md-3">
                 <div class="cloud-asset-item asset-area">
                   <div class="asset-info">
                     <%= image_tag(main_app.cdn_image_url(asset.attachment), class: 'cloud-asset-thumbnail attachment', width: '100px', height: '100px', data: { id: asset.id, name: asset.asset_file_name }) %>
-                    <%= content_tag(:div, asset.asset_file_name, class: 'cloud-asset-name') %>
+                    <%= content_tag(:p, asset.asset_file_name, class: 'cloud-asset-name') %>
                   </div>
                 </div>
-              </div>
             <% end %>
           </div>
         <% end %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary attach-btn">Attach</button>
+        <button type="button" class="btn btn-primary attach-btn">Save</button>
       </div>
     </div>
   </div>

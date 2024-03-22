@@ -1,7 +1,7 @@
 module Spree
   module Admin
     class CloudsController < ResourceController
-      before_action :load_filter_data
+      before_action :load_filter_data, only: :index
       
       def index
         params[:q] ||= {}

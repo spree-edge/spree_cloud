@@ -1,7 +1,7 @@
 module Spree
   module Admin::ImagesControllerDecorator
     def self.prepended(base)
-      base.before_action :load_cloud_assets, only: [:new, :edit, :create, :update]
+      base.before_action :load_cloud_assets, only: [:new, :edit, :create, :update, :filter_cloud_assets]
       base.before_action :load_filter_data, only: :edit
     end
 
@@ -36,8 +36,6 @@ module Spree
     end
 
     def filter_cloud_assets
-      @cloud_assets = current_store.cloud_assets
-
       @search = @cloud_assets.ransack(params[:q])
       @cloud_assets = @search.result(distinct: true)
 
@@ -48,7 +46,6 @@ module Spree
 
     def load_filter_data
       @search = @cloud_assets.ransack(params[:q])
-      @content_type_options =  @cloud_assets.distinct.pluck(:attachment_content_type)
     end
 
     def load_cloud_assets
