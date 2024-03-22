@@ -18,3 +18,25 @@
   background-color: #478DC1;
   color: #fff;
 }
+
+.asset-area:hover ul.dropdown-menu {
+  width: 30px;
+  min-width: auto;
+  height: 100%;
+  border: none;
+  display: block;
+  top: -2px;
+  right: 0;
+  background: #fff;
+  box-shadow: none;
+}
+
+.asset-area:hover ul.dropdown-menu > li > a {
+  padding: 3px 0;
+  text-align: center;
+}
+
+.select-file {
+  font-size: 12px;
+  line-height: 16px;
+}
