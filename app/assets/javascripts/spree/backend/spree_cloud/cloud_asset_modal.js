@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('turbo:load', function () {
   $('#associate_asset_modal').on('click', '.asset-area', function() {
     $('#cloud_asset_id_field').val($(this).find('.attachment').attr('data-id'));
     $('#cloud_asset_file_name').val($(this).find('.attachment').attr('data-name'));
