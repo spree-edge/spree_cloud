@@ -30,7 +30,7 @@ module Spree
 
         if @cloud_asset.save
           flash.now[:notice] = 'Cloud asset was successfully created.'
-          render turbo_stream: turbo_stream.append('display-cloud-assets', partial: 'cloud_asset', locals: { cloud_asset: @cloud_asset })
+          render turbo_stream: turbo_stream.replace('display-cloud-assets', partial: 'cloud_asset_table', locals: { collection: collection })
         else
           render :index
         end
