@@ -11,17 +11,17 @@
           <div data-hook="admin_products_index_search" class="form-group row">
             <div class="col-md-3">
               <%= f.label :asset_file_name_cont, "Asset Name" %>
-              <%= f.text_field :asset_file_name_cont, class: "form-control js-quick-search-target js-filterable" %>
+              <%= f.text_field :asset_file_name_cont, placeholder: Spree.t(:type_here, scope: :spree_cloud), class: "form-control js-quick-search-target js-filterable" %>
             </div>
 
             <div class="col-md-3">
               <%= f.label :user_email_cont, "Added By" %>
-              <%= f.text_field :user_email_cont, class: "form-control js-filterable" %>
+              <%= f.text_field :user_email_cont, placeholder: Spree.t(:type_here, scope: :spree_cloud), class: "form-control js-filterable" %>
             </div>
 
             <div class="col-md-3">
-              <%= f.label :created_at_gt, 'Uploaded at' %>
-              <%= f.date_field :created_at_gt, class: "form-control js-filterable" %>
+              <%= f.label :created_at_eq, 'Uploaded at' %>
+              <%= f.date_field :created_at_eq, class: "form-control js-filterable" %>
             </div>
           </div>
 

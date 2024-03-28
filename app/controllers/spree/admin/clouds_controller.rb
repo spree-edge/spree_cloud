@@ -7,15 +7,17 @@ module Spree
         params[:q] ||= {}
         params[:q][:s] ||= 'created_at desc'
 
-        if params[:q][:created_at_gt].present?
-          params[:q][:created_at_gt] = begin
-            Time.zone.parse(params[:q][:created_at_gt]).beginning_of_day
-          rescue StandardError
-            ''
-          end
+        if params.dig(:q, :created_at_eq).present?
+          selected_date = Date.parse(params[:q][:created_at_eq])
+          start_of_day = selected_date.beginning_of_day
+          end_of_day = selected_date.end_of_day
+          search_params = params[:q].except(:created_at_eq)
+                            .merge(created_at_gteq: start_of_day, created_at_lt: end_of_day)
+          @search = @collection.ransack(search_params)
+        else
+          @search = @collection.ransack(params[:q])
         end
 
-        @search = @collection.ransack(params[:q])
         @collection = @search.result.
                       page(params[:page]).
                       per(params[:per_page] || Spree::Backend::Config[:admin_products_per_page])

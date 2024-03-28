@@ -36,7 +36,17 @@ module Spree
     end
 
     def filter_cloud_assets
-      @search = @cloud_assets.ransack(params[:q])
+      if params.dig(:q, :created_at_eq).present?
+        selected_date = Date.parse(params[:q][:created_at_eq])
+        start_of_day = selected_date.beginning_of_day
+        end_of_day = selected_date.end_of_day
+        search_params = params[:q].except(:created_at_eq)
+                          .merge(created_at_gteq: start_of_day, created_at_lt: end_of_day)
+        @search = @cloud_assets.ransack(search_params)
+      else
+        @search = @cloud_assets.ransack(params[:q])
+      end
+
       @cloud_assets = @search.result(distinct: true)
 
       render turbo_stream: turbo_stream.replace("upload_asset_modal_body", partial: "cloud_assets_modal_body")

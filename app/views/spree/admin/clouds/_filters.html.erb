@@ -3,15 +3,15 @@
     <div data-hook="admin_products_index_search" class="row">
       <div class="col-12 col-lg-6">
         <div class="form-group">
-          <%= f.label :asset_file_name_eq, 'Name' %>
-          <%= f.text_field :asset_file_name_eq, size: 40, class: "form-control js-quick-search-target js-filterable" %>
+          <%= f.label :asset_file_name_cont, 'Name' %>
+          <%= f.text_field :asset_file_name_cont, size: 40, placeholder: Spree.t(:type_asset_name, scope: :spree_cloud), class: "form-control js-quick-search-target js-filterable" %>
         </div>
       </div>
 
       <div class="col-12 col-lg-6">
         <div class="form-group">
           <%= f.label :user_email_cont, 'Added By' %>
-          <%= f.text_field :user_email_cont, size: 30, class: "form-control js-filterable" %>
+          <%= f.text_field :user_email_cont, size: 30, placeholder: Spree.t(:email, scope: :spree_cloud), class: "form-control js-filterable" %>
         </div>
       </div>
 
@@ -42,10 +42,10 @@
         <div class="input-group datePickerFrom"
              data-wrap="true"
              data-alt-format="<%= Spree.t(:fpr_human_friendly_date_format, scope: 'date_picker', default: 'M j, Y') %>"
-             data-max-date="<%= params[:q][:created_at_lt] %>">
-          <%= f.text_field :created_at_gt,
+             data-max-date="<%= params[:q][:created_at_lt] %>">  
+          <%= f.text_field :created_at_eq,
             class: 'form-control js-filterable',
-              value: params[:q][:created_at_gt],
+              value: params[:q][:created_at_eq],
               placeholder: Spree.t(:starting_from),
               'data-input':'' %>
           <%= render partial: 'spree/admin/shared/cal_close' %>
