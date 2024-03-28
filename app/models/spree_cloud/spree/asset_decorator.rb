@@ -2,7 +2,7 @@ module SpreeCloud
   module Spree
     module AssetDecorator
       def self.prepended(base)
-        base.after_save :create_cloud_asset, unless: -> { cloud_asset_exists? }
+        base.after_commit :create_cloud_asset, unless: -> { cloud_asset_exists? }
       end
 
       def create_cloud_asset
