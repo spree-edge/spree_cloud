@@ -23,29 +23,23 @@
               <%= f.label :created_at_eq, 'Uploaded at' %>
               <%= f.date_field :created_at_eq, class: "form-control js-filterable" %>
             </div>
-          </div>
-
-          <div class="form-actions" data-hook="buttons">
-            <%= f.submit "Search", class: "btn btn-primary px-3" %>
+            <div class="form-actions" data-hook="buttons">
+              <%= f.submit "Search", class: "btn btn-primary px-3" %>
+            </div>
           </div>
         <% end %><br>
 
         <%= turbo_frame_tag "upload_asset_modal_body" do %>
           <div class="row gap-30">
             <% @cloud_assets.each do |asset| %>
-
-                <div class="card asset-area border-0 rounded-0">
-                  <div class="asset-info asset-area">
-                    <%# <%= image_tag(main_app.cdn_image_url(asset.attachment), class: 'cloud-asset-thumbnail attachment', width: '100%', height: '136px', data: { id: asset.id, name: asset.asset_file_name }) %>
-                    <%= image_tag('backend-custom-hoddie-image', alt: 'Send', width: '100%', height: '100%', class: 'zoom-image') %>
+                <div class="card asset-area cloud-area border-0 rounded-0">
+                  <div class="asset-info cloud-area">
+                    <%= image_tag(main_app.cdn_image_url(asset.attachment), class: 'cloud-asset-thumbnail attachment', width: '100%', height: '136px', data: { id: asset.id, name: asset.asset_file_name }) %>
                   </div>
                   <div class="card-body p-0">
                     <%= content_tag(:p, asset.asset_file_name, class: 'cloud-asset-name p-2 rounded-bottom mb-0 card-text h-100') %>
                   </div>
                 </div>
-
-        
-
             <% end %>
           </div>
         <% end %>
@@ -53,7 +47,7 @@
       <div class="modal-footer border-top-0">
         <div class="form-actions" data-hook="buttons">
           <button type="button" class="btn btn-primary attach-btn mr-2">Save</button>
-          <%= button_link_to Spree.t('actions.cancel'), spree.admin_product_images_url(@product), id: 'cancel_link' %>
+          <button type="button", class="btn btn-light cancel-btn mr-2">Cancel</button>
         </div>
       </div>
     </div>

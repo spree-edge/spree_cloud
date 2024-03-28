@@ -8,7 +8,7 @@
   row-gap: 10px;
 }
 
-.asset-area {
+.cloud-area {
   width: 136px;
 }
 
@@ -18,8 +18,7 @@
 }
 
 .asset-area.active {
-  background-color: #478dc1;
-  color: #fff;
+  border: 2px solid #010a51 !important;;
 }
 
 .asset-area:hover ul.dropdown-menu {
@@ -91,4 +90,10 @@
   transform: scale(1.5);
   opacity: 0.8;
   cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #fff;
+  color: #010a51;
+  border: 1px solid #010a51
 }

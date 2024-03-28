@@ -14,16 +14,27 @@ $(document).on('turbo:load', function () {
     $('#cloud_asset_id_field').val($(this).find('.attachment').attr('data-id'));
     attachmentField.val(''); // Clear the value of attachmentField if cloudAssetIdField has a value
     $('#cloud_asset_file_name').val($(this).find('.attachment').attr('data-name'));
-    $('.close').click();
+    $('.cloud-close-modal').click();
   });
 
   $(".attach-btn").on('click', function() {
-    $('.close').click();
+    $('.cloud-close-modal').click();
+  })
+
+  $(".cancel-btn").on('click', function(){
+    cloudAssetIdField.val(''); // Clear the value of cloudAssetIdField if attachmentField has a value
+    $('#cloud_asset_file_name').val('')
+    $('.cloud-close-modal').click();
+  })
+
+  $('.cloud-close-modal').on('click', function(){
+    $('.asset-area.active').removeClass('active');
   })
 
   attachmentField.change(function() {
     if ($(this).val()) {
       cloudAssetIdField.val(''); // Clear the value of cloudAssetIdField if attachmentField has a value
+      $('#cloud_asset_file_name').val('')
     }
   });
 });
