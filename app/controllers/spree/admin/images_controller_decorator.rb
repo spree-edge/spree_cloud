@@ -2,7 +2,7 @@ module Spree
   module Admin::ImagesControllerDecorator
     def self.prepended(base)
       base.before_action :load_cloud_assets, only: [:new, :edit, :create, :update, :filter_cloud_assets]
-      base.before_action :load_filter_data, only: :edit
+      base.before_action :load_filter_data, only: [:new, :edit, :create]
     end
 
     def update
@@ -23,6 +23,28 @@ module Spree
         invoke_callbacks(:update, :fails)
         respond_with(@object) do |format|
           format.html { render action: :edit, status: :unprocessable_entity }
+          format.js { render layout: false, status: :unprocessable_entity }
+        end
+      end
+    end
+
+    def create
+      invoke_callbacks(:create, :before)
+      set_cloud_asset if params[:image][:attachment].nil?
+      @object.attributes = permitted_resource_params
+      if @object.save
+        # set_cloud_asset if params[:image][:attachment].nil?
+        invoke_callbacks(:create, :after)
+        flash[:success] = flash_message_for(@object, :successfully_created)
+        respond_with(@object) do |format|
+          format.turbo_stream if create_turbo_stream_enabled?
+          format.html { redirect_to location_after_save }
+          format.js   { render layout: false }
+        end
+      else
+        invoke_callbacks(:create, :fails)
+        respond_with(@object) do |format|
+          format.html { render action: :new, status: :unprocessable_entity }
           format.js { render layout: false, status: :unprocessable_entity }
         end
       end
