@@ -12,7 +12,7 @@ module Spree::Admin::CloudsHelper
 
   def display_asset_actions(cloud_asset)
     actions = ""
-    actions += link_to_edit(cloud_asset, class: '', no_text: true) if can?(:edit, cloud_asset)
+    actions += link_to_with_icon('link.svg', '', Rails.application.routes.url_helpers.cdn_image_url(cloud_asset.attachment), class: 'btn btn-light btn-sm', target: "_blank")
     actions += link_to_delete(cloud_asset, no_text: true) if can?(:delete, cloud_asset)
     "<td class='actions'><span class='d-flex justify-content-end'>#{actions}</span></td>".html_safe
   end

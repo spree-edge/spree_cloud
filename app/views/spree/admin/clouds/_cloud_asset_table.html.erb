@@ -1,0 +1,17 @@
+<%= turbo_frame_tag 'display-cloud-assets' do %>
+  <table class="table" id='listing_cloud_assets'> 
+    <thead class="text-muted">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Date Added</th>
+        <th>Size</th>
+        <th>Added By</th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'cloud_asset', collection: collection, as: :cloud_asset %>
+    </tbody>
+  </table>
+<% end %>

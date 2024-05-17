@@ -1,22 +1,22 @@
+<div class="d-flex align-items-center flex-wrap mb-3 mb-md-0">
+  <div data-hook="file" class="form-group">
+    <%= f.label :attachment, Spree.t(:filename), class: 'd-block' %>
+    <%= f.file_field :attachment, class: 'choose-file' %>
+  </div>
+  <span class="or mb-0">or</span>
+  <div class="row form-group m-2">
+    <span class="input-group-btn" id="asset_upload_buton">
+      <button type="button" class="btn btn-primary mt-3" id="upload_asset_button" data-toggle="modal" data-target="#associate_asset_modal">Upload From Cloud</button>
+    </span>
+    <span>
+      <input type="text" id="cloud_asset_file_name" disabled="true" class="col-12 mt-3 form-control">
+    </span>
+  </div>
+</div>
+
+
 <div data-hook="admin_image_form_fields" class="row">
   <div class="col-12 col-md-6">
-    <div data-hook="file" class="form-group">
-      <%= f.label :attachment, Spree.t(:filename) %>
-      <%= f.file_field :attachment %>
-    </div>
-
-    <div class="form-group">
-      <div class="row">
-        <div>
-          <span class="input-group-btn" id="asset_upload_buton">
-            <button type="button" class="btn btn-primary" id="upload_asset_button" data-toggle="modal" data-target="#associate_asset_modal">Upload From Cloud</button>
-          </span>
-        </div>
-        <div>
-          <input type="text" id="cloud_asset_file_name" disabled="true" class="form-control" style="display: none;">
-        </div>
-      </div>
-    </div>
 
     <div data-hook="variant" class="form-group">
       <%= f.label :viewable_id, Spree::Variant.model_name.human %>
@@ -26,7 +26,7 @@
   <div data-hook="alt_text" class="col-12 col-md-6">
     <div class="form-group">
       <%= f.label :alt, Spree.t(:alt_text) %>
-      <%= f.text_area :alt, rows: 4, class: 'form-control' %>
+      <%= f.text_area :alt, rows: 1, class: 'form-control' %>
     </div>
   </div>
 </div>
