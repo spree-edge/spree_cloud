@@ -29,21 +29,12 @@ module Spree
         @cloud_asset.user = spree_current_user
 
         if @cloud_asset.save
-          flash.now[:notice] = 'Cloud asset was successfully created.'
-          render turbo_stream: turbo_stream.replace('display-cloud-assets', partial: 'cloud_asset_table', locals: { collection: collection })
+          flash[:success] = 'Cloud asset was successfully created.'
+          # render turbo_stream: turbo_stream.replace('display-cloud-assets', partial: 'cloud_asset_table', locals: { collection: collection })
+          redirect_to spree.admin_clouds_path
         else
           render :index
         end
-      end
-
-      def destroy
-        @cloud_asset = Spree::CloudAsset.find(params[:id])
-        if @cloud_asset.destroy
-          flash.now[:notice] = 'Cloud asset was successfully deleted.'
-        else
-          flash.now[:error] = 'Failed to delete cloud asset.'
-        end
-        redirect_to spree.admin_clouds_path
       end
 
       private
