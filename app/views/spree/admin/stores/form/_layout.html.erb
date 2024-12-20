@@ -64,12 +64,12 @@
         <% end %>
         <span class="or mb-0">or</span>
         <%= cloud_asset_upload_button(
-          button_text: 'Upload Favicon', 
-          input_id: 'cloud_asset_favicon_file_name', 
-          hidden_field_name: 'cloud_asset_favicon',
-          input_field_id: 'cloud_asset_favicon_id'
+          button_text: 'Upload favicon image',
+          input_id: 'cloud_asset_favicon_image_file_name',
+          hidden_field_name: 'cloud_asset_favicon_image',
+          input_field_id: 'cloud_asset_favicon_image_id'
         ) %>
-        <input type="hidden" id="cloud_asset_favicon_id" name="cloud_asset[favicon]" />
+        <input type="hidden" id="cloud_asset_favicon_image_id" name="cloud_asset[favicon_image]" />
       <% end %>
     <% end %>
   </div>
