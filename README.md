@@ -58,3 +58,16 @@ If you'd like to contribute, please take a look at the
 pull request.
 
 Copyright (c) 2024 [name of extension creator], released under the New BSD License
+
+## Working
+
+- You have to add gem to your file
+- Add <%= cloud_asset_upload_button(
+  button_text: 'Upload {attachment_name}',
+  input_id: 'cloud_asset_{your_attachment_name}_name',
+  hidden_field_name: 'cloud_asset_your_{attachment_name}',
+  input_field_id: 'cloud_asset_your_field_id'
+    ) %>
+  <input type="hidden" id="cloud_asset_your_field_id" name="cloud_asset[{attachment_name}]" />
+- If your controller is inherited from base controller you will have to override our concern method
+- Add routes in your routes.rb

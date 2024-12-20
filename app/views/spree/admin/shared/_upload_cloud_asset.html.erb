@@ -1,4 +1,4 @@
-<div id="associate_asset_modal" class="modal fade p-0">
+<div id="associate_asset_modal" class="modal fade p-0" data-object-id="<%= resource.id %>" data-object-type="<%= resource.class.name.underscore %>" >
   <div class="modal-dialog modal-lg">
     <!-- Modal content-->
     <div class="modal-content">
@@ -7,7 +7,7 @@
         <button type="button" class="cloud-close-modal text-white" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body cloud-asset-modal">
-        <%= search_form_for @search, url: filter_cloud_assets_admin_product_images_path, method: "get" do |f| %>
+        <%= search_form_for @search, url: , method: "get" do |f| %>
           <div data-hook="admin_products_index_search" class="form-group row align-items-end">
             <div class="col-md-3 p-0">
               <%= f.label :asset_file_name_cont, "Asset Name" %>

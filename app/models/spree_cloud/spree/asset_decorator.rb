@@ -22,8 +22,8 @@ module SpreeCloud
           asset_type: viewable_type,
           asset_url: '',
           alt: alt,
-          store_id: Thread.current["#{Apartment::Tenant.current}_current_store_id"],
-          user_id: Thread.current["#{Apartment::Tenant.current}_current_user_id"]
+          store_id: Thread.current["current_store_id"],
+          user_id: Thread.current["current_user_id"]
         }
       end
     end
