@@ -29,18 +29,36 @@ Introduction goes here.
 
 ## How To Use on custom places
 
-- Add helper method to view template
-    example:
+- Add helper method to view template.
+      
+```ruby
     <%= cloud_asset_upload_button(
     button_text: 'Upload {attachment_name}',
     input_id: 'cloud_asset_{your_attachment_name}_name',
     hidden_field_name: 'cloud_asset_your_{attachment_name}',
     input_field_id: 'cloud_asset_your_field_id'
     ) %>
-    <input type="hidden" id="cloud_asset_your_field_id" name="cloud_asset[{attachment_name}]" />
-- Add routes in your routes.rb
-- Need to override our concern if inheriting controller from base
 
+    <input type="hidden" id="cloud_asset_your_field_id" name="cloud_asset[{attachment_name}]" />
+```
+
+- Add collection routes in your routes.rb with resources.
+  
+  ```ruby
+  resources :custom_resources do
+    collection do
+      get :filter_cloud_assets
+    end
+  end
+  ```
+- Include the cancern in your controller.
+  ```ruby
+  include ::Spree::CloudAssetsFilterable
+  ```
+
+- Restart your server
+
+  
 
 ## Testing
 
