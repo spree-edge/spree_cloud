@@ -1,0 +1,21 @@
+<%= render partial: 'spree/admin/taxons/tabs', locals: {current: :details} %>
+
+<% content_for :page_actions do %>
+  <%= external_page_preview_link(@taxon) %>
+<% end %>
+
+<%# Because otherwise the form would attempt to use to_param of @taxon %>
+<% form_url = admin_taxonomy_taxon_path(@taxonomy.id, @taxon.id) %>
+
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @taxon } %>
+
+<%= form_for [:admin, @taxonomy, @taxon], method: :put, url: form_url, html: { multipart: true } do |f| %>
+  <%= render 'form', f: f %>
+
+  <div class="form-actions" data-hook="buttons">
+    <%= button Spree.t('actions.update'), 'save.svg' %>
+    <span class="or"><%= Spree.t(:or) %></span>
+    <%= button_link_to Spree.t('actions.cancel'), edit_admin_taxonomy_url(@taxonomy), icon: "cancel.svg" %>
+  </div>
+<% end %>
+<%= render partial: 'spree/admin/shared/upload_cloud_asset', locals: {resource: @taxon, url: filter_cloud_assets_admin_taxonomy_taxons_path } %>

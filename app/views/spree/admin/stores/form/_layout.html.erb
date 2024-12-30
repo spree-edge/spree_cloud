@@ -1,0 +1,76 @@
+<div class="card mb-4">
+  <div class="card-header">
+    <div class="card-title mb-0 h6">
+      <%= Spree.t('admin.store_form.look_and_feel ') %>
+    </div>
+  </div>
+  <div class="card-body">
+    <% @store.build_logo unless @store.logo %>
+    <%= f.fields_for :logo do |ff| %>
+      <%= f.field_container :logo do %>
+        <% if @store.logo.attachment&.attached? && @store.logo.attachment&.variable? %>
+          <%= image_tag main_app.cdn_image_url(@store.logo.attachment.variant(resize_to_limit: [244, 104])) %>
+        <% end %>
+        <%= f.field_container :logo do %>
+          <%= f.label :logo, Spree.t(:logo) %><br>
+          <%= ff.file_field :attachment %>
+          <%= f.error_message_on :logo %>
+        <% end %>
+        <span class="or mb-0">or</span>
+        <div class="row form-group m-2">
+          <%= cloud_asset_upload_button(
+            button_text: 'Upload Logo', 
+            input_id: 'cloud_asset_logo_file_name', 
+            hidden_field_name: 'cloud_asset_logo',
+            input_field_id: 'cloud_asset_logo_id'
+          ) %>
+        </div>
+        <input type="hidden" id="cloud_asset_logo_id" name="cloud_asset[logo]" />
+      <% end %>
+    <% end %>
+    
+    <% @store.build_mailer_logo unless @store.mailer_logo %>
+    <%= f.fields_for :mailer_logo do |ff| %>
+      <%= f.field_container :mailer_logo do %>
+        <% if @store.mailer_logo.attachment&.attached? && @store.mailer_logo.attachment&.variable? %>
+          <%= image_tag main_app.cdn_image_url(@store.mailer_logo.attachment.variant(resize_to_limit: [244, 104])) %>
+        <% end %>
+        <%= f.field_container :mailer_logo do %>
+          <%= f.label :mailer_logo, Spree.t(:mailer_logo) %><br>
+          <%= ff.file_field :attachment, accept: Spree::StoreMailerLogo::VALID_CONTENT_TYPES.join(',') %>
+          <%= f.error_message_on :mailer_logo %>
+        <% end %>
+        <span class="or mb-0">or</span>
+        <%= cloud_asset_upload_button(
+          button_text: 'Upload Mailer Logo', 
+          input_id: 'cloud_asset_mailer_logo_file_name', 
+          hidden_field_name: 'cloud_asset_mailer_logo',
+          input_field_id: 'cloud_asset_mailer_logo_id'
+        ) %>
+        <input type="hidden" id="cloud_asset_mailer_logo_id" name="cloud_asset[mailer_logo]" />
+      <% end %>
+    <% end %>
+    
+    <% @store.build_favicon_image unless @store.favicon_image %>
+    <%= f.fields_for :favicon_image do |ff| %>
+      <%= f.field_container :favicon_image do %>
+        <% if @store.favicon_image.attachment&.attached? && @store.favicon_image.attachment&.variable? %>
+          <%= image_tag main_app.cdn_image_url(@store.favicon_image.attachment.variant(resize_to_limit: [104, 104])) %>
+        <% end %>
+        <%= f.field_container :favicon_image do %>
+          <%= f.label :favicon_image, "#{Spree.t(:favicon)} (#{Spree.t(:favicon_upload_info)})" %><br>
+          <%= ff.file_field :attachment, accept: Spree::StoreFaviconImage::VALID_CONTENT_TYPES.join(',') %>
+          <%= f.error_message_on :favicon_image %>
+        <% end %>
+        <span class="or mb-0">or</span>
+        <%= cloud_asset_upload_button(
+          button_text: 'Upload favicon image',
+          input_id: 'cloud_asset_favicon_image_file_name',
+          hidden_field_name: 'cloud_asset_favicon_image',
+          input_field_id: 'cloud_asset_favicon_image_id'
+        ) %>
+        <input type="hidden" id="cloud_asset_favicon_image_id" name="cloud_asset[favicon_image]" />
+      <% end %>
+    <% end %>
+  </div>
+</div>
